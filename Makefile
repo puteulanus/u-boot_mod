@@ -1,3 +1,9 @@
+export BUILD_TOPDIR=$(PWD)
+export STAGING_DIR=$(BUILD_TOPDIR)/tmp
+
+export MAKECMD=make --silent ARCH=mips CROSS_COMPILE=mips-openwrt-linux-uclibc-
+export PATH:=$(BUILD_TOPDIR)/toolchain/staging_dir/toolchain-mips_24kc_gcc-5.4.0_musl-1.1.16/bin/:$(PATH)
+
 #
 # Copyright (C) 2016 Piotr Dymacz <piotr@dymacz.pl>
 #
@@ -258,6 +264,9 @@ creatcomm-technology_d3321 \
 gl-inet_gl-ar150 \
 gl-inet_gl-usb150:
 	@$(call build,256,1)
+
+zsun-sdreader:
+	@$(call build,64,1)
 
 alfa-network_ap121f:
 	@$(call build,192,1)

@@ -398,6 +398,11 @@ lsdk_kernel:
 	@$(call config_init,8devices Carambola 2,carambola-v2,16,11,1,QCA_AR9331_SOC)
 	@$(call define_add,CONFIG_FOR_8DEVICES_CARAMBOLA2,1)
 	@$(MKCONFIG) -a ap121 mips mips ap121 ar7240 ar7240
+	
+zsun-sdreader: ar933x_common
+	@$(call config_init,ZSUN WiFi SD Card Reader,zsun-sdreader,16,11,1,QCA_AR9331_SOC)
+	@$(call define_add,CONFIG_FOR_ZSUN_SDREADER,1)
+	@$(MKCONFIG) -a ap121 mips mips ap121 ar7240 ar7240
 
 alfa-network_ap121f: ar933x_common
 	@$(call config_init,ALFA Network AP121F,ap121f,16,12,1,QCA_AR9331_SOC)

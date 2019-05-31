@@ -25,6 +25,11 @@
 
 	#define CONFIG_QCA_GPIO_MASK_LED_ACT_H	GPIO13 | GPIO14
 	#define CONFIG_QCA_GPIO_MASK_LED_ACT_L	GPIO0
+	
+#elif defined(CONFIG_FOR_ZSUN_SDREADER)
+
+	#define CONFIG_QCA_GPIO_MASK_LED_ACT_H	GPIO13 | GPIO14
+	#define CONFIG_QCA_GPIO_MASK_LED_ACT_L	GPIO0
 
 #elif defined(CONFIG_FOR_ALFA_NETWORK_AP121F)
 
@@ -169,6 +174,12 @@
 				"rootfstype=squashfs init=/sbin/init "\
 				"mtdparts=ar7240-nor0:256k(u-boot),64k(u-boot-env),16000k(firmware),64k(art)"
 
+#elif defined(CONFIG_FOR_ZSUN_SDREADER)
+
+	#define CONFIG_BOOTARGS	"console=ttyATH0,115200 root=31:02 "\
+				"rootfstype=squashfs noinitrd "\
+				"mtdparts=spi0.0:64k(u-boot)ro,64k(u-boot-env)ro,14912k(rootfs),1216k(kernel),64k(nvram),64k(art),16128k@0x20000(firmware)"
+
 #elif defined(CONFIG_FOR_ALFA_NETWORK_AP121F)
 
 	#define CONFIG_BOOTARGS	"board=AP121F console=ttyATH0,115200 "\
@@ -251,6 +262,7 @@
  * =============================
  */
 #if defined(CONFIG_FOR_8DEVICES_CARAMBOLA2)    ||\
+	defined(CONFIG_FOR_ZSUN_SDREADER)     ||\
     defined(CONFIG_FOR_ALFA_NETWORK_AP121F)    ||\
     defined(CONFIG_FOR_ALFA_NETWORK_HORNET_UB) ||\
     defined(CONFIG_FOR_ALFA_NETWORK_TUBE2H)    ||\
@@ -296,6 +308,7 @@
  * =========================
  */
 #if defined(CONFIG_FOR_8DEVICES_CARAMBOLA2)    ||\
+	defined(CONFIG_FOR_ZSUN_SDREADER)     ||\
     defined(CONFIG_FOR_ALFA_NETWORK_HORNET_UB) ||\
     defined(CONFIG_FOR_ALFA_NETWORK_TUBE2H)    ||\
     defined(CONFIG_FOR_CREATCOMM_D3321)        ||\
@@ -355,6 +368,7 @@
  * ==================================================
  */
 #if defined(CONFIG_FOR_8DEVICES_CARAMBOLA2)    ||\
+	defined(CONFIG_FOR_ZSUN_SDREADER)     ||\
     defined(CONFIG_FOR_ALFA_NETWORK_HORNET_UB) ||\
     defined(CONFIG_FOR_ALFA_NETWORK_TUBE2H)    ||\
     defined(CONFIG_FOR_CREATCOMM_D3321)        ||\
@@ -413,6 +427,7 @@
 #endif
 
 #if !defined(CONFIG_FOR_8DEVICES_CARAMBOLA2)         &&\
+	!defined(CONFIG_FOR_ZSUN_SDREADER)          &&\
     !defined(CONFIG_FOR_ALFA_NETWORK_AP121F)         &&\
     !defined(CONFIG_FOR_ALFA_NETWORK_HORNET_UB)      &&\
     !defined(CONFIG_FOR_ALFA_NETWORK_TUBE2H)         &&\
@@ -481,6 +496,17 @@
 
 #endif
 
+/* Remove Net support for zsun wifi sdreader to reduce size under 64 KB */
+#if defined(CONFIG_FOR_ZSUN_SDREADER)
+
+	#undef CONFIG_CMD_DHCP
+	#undef CONFIG_CMD_NET
+	#undef CONFIG_NET_MULTI
+	#undef CONFIG_CMD_HTTPD
+	#undef CONFIG_NETCONSOLE
+
+#endif
+
 /*
  * ===========================
  * HTTP recovery configuration
@@ -500,6 +526,7 @@
 
 /* Firmware size limit */
 #if defined(CONFIG_FOR_8DEVICES_CARAMBOLA2) ||\
+	defined(CONFIG_FOR_ZSUN_SDREADER)  ||\
     defined(CONFIG_FOR_GLINET_GL_AR150)     ||\
     defined(CONFIG_FOR_GLINET_GL_USB150)
 
@@ -542,6 +569,7 @@
 #define CONFIG_QCA_PLL	QCA_PLL_PRESET_400_400_200
 
 #if defined(CONFIG_FOR_8DEVICES_CARAMBOLA2)    ||\
+	defined(CONFIG_FOR_ZSUN_SDREADER)     ||\
     defined(CONFIG_FOR_ALFA_NETWORK_AP121F)    ||\
     defined(CONFIG_FOR_ALFA_NETWORK_HORNET_UB) ||\
     defined(CONFIG_FOR_ALFA_NETWORK_TUBE2H)    ||\
@@ -577,6 +605,7 @@
  * ==================================
  */
 #if !defined(CONFIG_FOR_8DEVICES_CARAMBOLA2)         &&\
+	!defined(CONFIG_FOR_ZSUN_SDREADER)          &&\
     !defined(CONFIG_FOR_ALFA_NETWORK_AP121F)         &&\
     !defined(CONFIG_FOR_ALFA_NETWORK_HORNET_UB)      &&\
     !defined(CONFIG_FOR_ALFA_NETWORK_TUBE2H)         &&\
