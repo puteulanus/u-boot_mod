@@ -262,7 +262,6 @@
  * =============================
  */
 #if defined(CONFIG_FOR_8DEVICES_CARAMBOLA2)    ||\
-	defined(CONFIG_FOR_ZSUN_SDREADER)     ||\
     defined(CONFIG_FOR_ALFA_NETWORK_AP121F)    ||\
     defined(CONFIG_FOR_ALFA_NETWORK_HORNET_UB) ||\
     defined(CONFIG_FOR_ALFA_NETWORK_TUBE2H)    ||\
@@ -275,6 +274,10 @@
 #elif defined(CONFIG_FOR_DLINK_DIR505_A1)
 
 	#define CFG_LOAD_ADDR	0x9F080000
+
+#elif defined(CONFIG_FOR_ZSUN_SDREADER)
+
+	#define CFG_LOAD_ADDR	0x9FEB0000
 
 #elif defined(CONFIG_FOR_DRAGINO_MS14) ||\
       defined(CONFIG_FOR_VILLAGE_TELCO_MP2)
