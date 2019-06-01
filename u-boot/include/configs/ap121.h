@@ -28,7 +28,6 @@
 	
 #elif defined(CONFIG_FOR_ZSUN_SDREADER)
 
-	#define CONFIG_QCA_GPIO_MASK_LED_ACT_H	GPIO13 | GPIO14
 	#define CONFIG_QCA_GPIO_MASK_LED_ACT_L	GPIO0
 
 #elif defined(CONFIG_FOR_ALFA_NETWORK_AP121F)
@@ -315,7 +314,6 @@
  * =========================
  */
 #if defined(CONFIG_FOR_8DEVICES_CARAMBOLA2)    ||\
-	defined(CONFIG_FOR_ZSUN_SDREADER)     ||\
     defined(CONFIG_FOR_ALFA_NETWORK_HORNET_UB) ||\
     defined(CONFIG_FOR_ALFA_NETWORK_TUBE2H)    ||\
     defined(CONFIG_FOR_CREATCOMM_D3321)        ||\
@@ -325,6 +323,11 @@
 	#define CFG_ENV_ADDR		0x9F040000
 	#define CFG_ENV_SIZE		0x8000
 	#define CFG_ENV_SECT_SIZE	0x10000
+	
+#elif defined(CONFIG_FOR_ZSUN_SDREADER)
+
+	#define CFG_ENV_ADDR		0x9F010000
+	#define CFG_ENV_SIZE		0x10000
 
 #elif defined(CONFIG_FOR_ALFA_NETWORK_AP121F)
 
@@ -375,7 +378,7 @@
  * ==================================================
  */
 #if defined(CONFIG_FOR_8DEVICES_CARAMBOLA2)    ||\
-	defined(CONFIG_FOR_ZSUN_SDREADER)     ||\
+	defined(CONFIG_FOR_ZSUN_SDREADER)          ||\
     defined(CONFIG_FOR_ALFA_NETWORK_HORNET_UB) ||\
     defined(CONFIG_FOR_ALFA_NETWORK_TUBE2H)    ||\
     defined(CONFIG_FOR_CREATCOMM_D3321)        ||\
@@ -576,7 +579,7 @@
 #define CONFIG_QCA_PLL	QCA_PLL_PRESET_400_400_200
 
 #if defined(CONFIG_FOR_8DEVICES_CARAMBOLA2)    ||\
-	defined(CONFIG_FOR_ZSUN_SDREADER)     ||\
+	defined(CONFIG_FOR_ZSUN_SDREADER)          ||\
     defined(CONFIG_FOR_ALFA_NETWORK_AP121F)    ||\
     defined(CONFIG_FOR_ALFA_NETWORK_HORNET_UB) ||\
     defined(CONFIG_FOR_ALFA_NETWORK_TUBE2H)    ||\
@@ -612,7 +615,7 @@
  * ==================================
  */
 #if !defined(CONFIG_FOR_8DEVICES_CARAMBOLA2)         &&\
-	!defined(CONFIG_FOR_ZSUN_SDREADER)          &&\
+	!defined(CONFIG_FOR_ZSUN_SDREADER)               &&\
     !defined(CONFIG_FOR_ALFA_NETWORK_AP121F)         &&\
     !defined(CONFIG_FOR_ALFA_NETWORK_HORNET_UB)      &&\
     !defined(CONFIG_FOR_ALFA_NETWORK_TUBE2H)         &&\
