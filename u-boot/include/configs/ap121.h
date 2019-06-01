@@ -178,7 +178,7 @@
 
 	#define CONFIG_BOOTARGS	"console=ttyATH0,115200 root=31:02 "\
 				"rootfstype=squashfs noinitrd "\
-				"mtdparts=spi0.0:64k(u-boot)ro,64k(u-boot-env)ro,14912k(rootfs),1216k(kernel),64k(nvram),64k(art),16128k@0x20000(firmware)"
+				"mtdparts=spi0.0:64k(u-boot)ro,64k(u-boot-env)ro,14080k(rootfs),2048k(kernel),64k(nvram),64k(art),16128k@0x20000(firmware)"
 
 #elif defined(CONFIG_FOR_ALFA_NETWORK_AP121F)
 
@@ -277,7 +277,7 @@
 
 #elif defined(CONFIG_FOR_ZSUN_SDREADER)
 
-	#define CFG_LOAD_ADDR	0x9FEB0000
+	#define CFG_LOAD_ADDR	0x9FDE0000
 
 #elif defined(CONFIG_FOR_DRAGINO_MS14) ||\
       defined(CONFIG_FOR_VILLAGE_TELCO_MP2)
@@ -298,6 +298,10 @@
     defined(CONFIG_FOR_ALFA_NETWORK_TUBE2H)
 
 	#define CONFIG_BOOTCOMMAND	"bootm 0x9F050000 || bootm 0x9F650000 || bootm 0x9FE50000"
+
+#elif defined(CONFIG_FOR_ZSUN_SDREADER)
+
+	#define CONFIG_BOOTCOMMAND	"bootm 0x9FEB0000 || bootm " MK_STR(CFG_LOAD_ADDR)
 
 #else
 
