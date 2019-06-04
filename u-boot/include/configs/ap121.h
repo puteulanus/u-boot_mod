@@ -276,7 +276,7 @@
 
 #elif defined(CONFIG_FOR_ZSUN_SDREADER)
 
-	#define CFG_LOAD_ADDR	0x9FDE0000
+	#define CFG_LOAD_ADDR	0x9FBE0000
 
 #elif defined(CONFIG_FOR_DRAGINO_MS14) ||\
       defined(CONFIG_FOR_VILLAGE_TELCO_MP2)
@@ -300,7 +300,7 @@
 
 #elif defined(CONFIG_FOR_ZSUN_SDREADER)
 
-	#define CONFIG_BOOTCOMMAND	"bootm 0x9FEB0000 || bootm " MK_STR(CFG_LOAD_ADDR)
+	#define CONFIG_BOOTCOMMAND	"bootm " MK_STR(CFG_LOAD_ADDR) " || bootm 0x9FDE0000"
 
 #else
 
@@ -514,6 +514,43 @@
 	#undef CONFIG_NET_MULTI
 	#undef CONFIG_CMD_HTTPD
 	#undef CONFIG_NETCONSOLE
+
+#endif
+
+/* Add Recovery Mode for zsun wifi sdreader */
+#if defined(CONFIG_FOR_ZSUN_SDREADER)
+
+	#define CONFIG_ENV_BTN_RECOVERY_SCRIPT	\
+		"recovery=" \
+		"if button; then " \
+			"sleep 600;" \
+			"setenv cnt 0;" \
+			"setenv stop_boot;" \
+			"echo Insert TF Card in 10s to enter Recovery Mode;" \
+			"echo;" \
+			"while button && itest $cnt < 0xA; do " \
+				"ledon;" \
+				"sleep 300;" \
+				"echo . \'\\\\c\';" \
+				"sleep 300;" \
+				"ledoff;" \
+				"sleep 600;" \
+				"setexpr cnt $cnt + 1;" \
+			"done;" \
+			"echo;" \
+			"if button; then " \
+				"echo;" \
+				"echo \\#\\# No TF Card insert!;" \
+				"echo Continuing normal boot...;" \
+				"echo;" \
+			"else;" \
+				"echo Starting Recovery Mode...;" \
+				"setenv stop_boot 1;" \
+				"echo;" \
+				"bootm 0x9FDE0000;" \
+			"fi;" \
+			"setenv cnt;" \
+		"fi\0"
 
 #endif
 

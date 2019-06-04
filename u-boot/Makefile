@@ -400,7 +400,7 @@ lsdk_kernel:
 	@$(MKCONFIG) -a ap121 mips mips ap121 ar7240 ar7240
 	
 zsun-sdreader: ar933x_common
-	@$(call config_init,ZSUN WiFi SD Card Reader,zsun-sdreader,16,,,QCA_AR9331_SOC)
+	@$(call config_init,ZSUN WiFi SD Card Reader,zsun-sdreader,16,22,0,QCA_AR9331_SOC)
 	@$(call define_add,CONFIG_FOR_ZSUN_SDREADER,1)
 	@$(MKCONFIG) -a ap121 mips mips ap121 ar7240 ar7240
 

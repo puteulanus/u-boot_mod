@@ -140,48 +140,52 @@
 		"elif itest $cnt < 5; then "
 	#endif
 
-	#define CONFIG_ENV_BTN_RECOVERY_SCRIPT	\
-		"recovery=" \
-		"if button; then " \
-			"sleep 600;" \
-			"setenv cnt 0;" \
-			"setenv stop_boot;" \
-			"echo Keep button pressed for at least:;" \
-			SCRIPT_HTTP_PART_1 \
-			"echo - 5s for U-Boot console;" \
-			"echo - 7s for network console;" \
-			"echo;" \
-			"while button && itest $cnt < 0xA; do " \
-				"ledon;" \
-				"sleep 300;" \
-				"echo . \'\\\\c\';" \
-				"sleep 300;" \
-				"ledoff;" \
+	#if !defined(CONFIG_ENV_BTN_RECOVERY_SCRIPT)
+
+		#define CONFIG_ENV_BTN_RECOVERY_SCRIPT	\
+			"recovery=" \
+			"if button; then " \
 				"sleep 600;" \
-				"setexpr cnt $cnt + 1;" \
-			"done;" \
-			"echo 0x$cnt seconds;" \
-			"echo;" \
-			"if itest $cnt >= 0xA; then " \
-				"echo \\#\\# Error: 10s limit reached!;" \
-				"echo Continuing normal boot...;" \
+				"setenv cnt 0;" \
+				"setenv stop_boot;" \
+				"echo Keep button pressed for at least:;" \
+				SCRIPT_HTTP_PART_1 \
+				"echo - 5s for U-Boot console;" \
+				"echo - 7s for network console;" \
 				"echo;" \
-			"elif itest $cnt >= 7; then " \
-				"echo Starting network console...;" \
-				"setenv stop_boot 1;" \
+				"while button && itest $cnt < 0xA; do " \
+					"ledon;" \
+					"sleep 300;" \
+					"echo . \'\\\\c\';" \
+					"sleep 300;" \
+					"ledoff;" \
+					"sleep 600;" \
+					"setexpr cnt $cnt + 1;" \
+				"done;" \
+				"echo 0x$cnt seconds;" \
 				"echo;" \
-				"startnc;" \
-			"elif itest $cnt >= 5; then " \
-				"echo Starting U-Boot console...;" \
-				"setenv stop_boot 1;" \
-				"echo;" \
-			SCRIPT_HTTP_PART_2 \
-				"echo \\#\\# Error: button was not pressed long enough!;" \
-				"echo Continuing normal boot...;" \
-				"echo;" \
-			"fi;" \
-			"setenv cnt;" \
-		"fi\0"
+				"if itest $cnt >= 0xA; then " \
+					"echo \\#\\# Error: 10s limit reached!;" \
+					"echo Continuing normal boot...;" \
+					"echo;" \
+				"elif itest $cnt >= 7; then " \
+					"echo Starting network console...;" \
+					"setenv stop_boot 1;" \
+					"echo;" \
+					"startnc;" \
+				"elif itest $cnt >= 5; then " \
+					"echo Starting U-Boot console...;" \
+					"setenv stop_boot 1;" \
+					"echo;" \
+				SCRIPT_HTTP_PART_2 \
+					"echo \\#\\# Error: button was not pressed long enough!;" \
+					"echo Continuing normal boot...;" \
+					"echo;" \
+				"fi;" \
+				"setenv cnt;" \
+			"fi\0"
+
+	#endif
 
 #endif /* CONFIG_BTN_RECOVERY_SCRIPT && CONFIG_GPIO_RESET_BTN */
 
