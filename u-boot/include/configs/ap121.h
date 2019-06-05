@@ -526,9 +526,9 @@
 			"sleep 600;" \
 			"setenv cnt 0;" \
 			"setenv stop_boot;" \
-			"echo Insert TF Card in 10s to enter Recovery Mode;" \
+			"echo Insert TF Card in 3s to enter Recovery Mode;" \
 			"echo;" \
-			"while button && itest $cnt < 0xA; do " \
+			"while button && itest $cnt < 3; do " \
 				"ledon;" \
 				"sleep 300;" \
 				"echo . \'\\\\c\';" \
